@@ -1,0 +1,49 @@
+package pack1;
+
+public class CompararFaturamento {
+
+    public static void main(String[] args) {
+        // Faturamento inicial e taxas de crescimento
+        double faturamentoA = 500000; // R$ 500.000
+        double faturamentoB = 1200000; // R$ 1.200.000
+        double taxaCrescimentoA = 0.08; // 8% ao ano
+        double taxaCrescimentoB = 0.04; // 4% ao ano
+
+        // Chama a função para calcular o número de anos até a ultrapassagem
+        int anos = calcularAnosParaUltrapassar(faturamentoA, faturamentoB, taxaCrescimentoA, taxaCrescimentoB);
+        
+        if (anos != -1) {
+            System.out.println("A empresa A ultrapassou a empresa B em " + anos + " anos.");
+        } else {
+            System.out.println("A empresa A não ultrapassou a empresa B em 50 anos.");
+        }
+    }
+
+    // Função que calcula o número de anos para a empresa A ultrapassar a B
+    public static int calcularAnosParaUltrapassar(double faturamentoA, double faturamentoB, double taxaCrescimentoA, double taxaCrescimentoB) {
+        int anos = 0;
+
+        // Loop para calcular o faturamento ano a ano
+        while (faturamentoA <= faturamentoB && anos < 50) {
+            faturamentoA += faturamentoA * taxaCrescimentoA; // Crescimento da empresa A
+            faturamentoB += faturamentoB * taxaCrescimentoB; // Crescimento da empresa B
+            anos++;
+
+            // Exibe o faturamento das empresas ano a ano
+            exibirFaturamentoAno(anos, faturamentoA, faturamentoB);
+        }
+
+        // Se a empresa A ultrapassou a B, retorna o número de anos
+        if (faturamentoA > faturamentoB) {
+            return anos;
+        } else {
+            return -1; // Caso a ultrapassagem não ocorra em 50 anos
+        }
+    }
+
+    // Função para exibir o faturamento das empresas no ano atual
+    public static void exibirFaturamentoAno(int ano, double faturamentoA, double faturamentoB) {
+        System.out.printf("Ano %d: Empresa A - R$ %.2f, Empresa B - R$ %.2f\n", ano, faturamentoA, faturamentoB);
+    }
+}
+

@@ -1,0 +1,44 @@
+package pack1;
+
+public class Ex001 {
+
+	public class CompararFaturamento {
+
+		public static void main(String[] args) {
+			double faturamentoA = 500000;
+			double faturamentoB = 1200000;
+			double taxaCrescimentoA = 0.08;
+			double taxaCrescimentoB = 0.04;
+
+			int anos = calcularAnosParaUltrapassar(faturamentoA, faturamentoB, taxaCrescimentoA, taxaCrescimentoB);
+
+			if (anos != -1) {
+				System.out.println("A empresa A ultrapassou a empresa B em " + anos + " anos.");
+			} else {
+				System.out.println("A empresa A não ultrapassou a empresa B em 50 anos.");
+			}
+		}
+
+		public static int calcularAnosParaUltrapassar(double faturamentoA, double faturamentoB, double taxaCrescimentoA,
+				double taxaCrescimentoB) {
+			int anos = 0;
+
+			while (faturamentoA <= faturamentoB && anos < 50) {
+				faturamentoA += faturamentoA * taxaCrescimentoA;
+				faturamentoB += faturamentoB * taxaCrescimentoB;
+				anos++;
+
+				exibirFaturamentoAno(anos, faturamentoA, faturamentoB);
+			}
+
+			if (faturamentoA > faturamentoB) {
+				return anos;
+			} else {
+				return -1; 
+			}
+		}
+
+		public static void exibirFaturamentoAno(int ano, double faturamentoA, double faturamentoB) {
+			System.out.printf("Ano %d: Empresa A - R$ %.2f, Empresa B - R$ %.2f\n", ano, faturamentoA, faturamentoB);
+		}
+	}
